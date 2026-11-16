@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data: never commit raw data. Document how to get it in data/README.md
+data/raw/
+data/processed/
+*.csv
+*.parquet
+
+# Experiment tracking / OS
+mlruns/
+.DS_Store
+
+# hand labels are part of the project
+!data/labels/*.csv
