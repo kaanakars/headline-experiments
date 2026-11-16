@@ -9,6 +9,7 @@ import pandas as pd
 RAW_DIR = Path("data/raw")
 REQUIRED = ["clickability_test_id", "headline", "impressions", "clicks", "created_at"]
 TEXT = ["headline", "excerpt", "lede", "slug"]
+BAD_RANDOMISATION = (pd.Timestamp("2013-06-25"), pd.Timestamp("2014-01-10 23:59"))
 
 
 def find_file(raw_dir: str | Path, split: str) -> Path:
@@ -44,10 +45,13 @@ def clean_packages(raw: pd.DataFrame) -> pd.DataFrame:
     for col in TEXT:
         df[col] = df[col].fillna("").astype(str) if col in df else ""
 
-    # the archive flags tests from Jun 2013 to Jan 2014 as badly randomised
+    # the archive says tests from 25 Jun 2013 to 10 Jan 2014 were badly randomised.
+    # Some files flag them in a column; others don't, so fall back to the dates.
     flag = next((c for c in ["problem", "randomization_imbalance_risk"] if c in df), None)
     if flag:
         df = df[df[flag] != 1]
+    else:
+        df = df[~df["created_at"].between(*BAD_RANDOMISATION)]
 
     df = df[(df["impressions"] > 0) & (df["clicks"] >= 0) & (df["clicks"] <= df["impressions"])]
     # exact copies of a row add nothing and would double count readers

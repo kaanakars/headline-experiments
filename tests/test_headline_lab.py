@@ -171,3 +171,16 @@ def test_validate_labels():
     table = validate(labels, predicted).set_index("topic")
     assert table.loc["politics", "precision"] == 0.5
     assert table.loc["politics", "recall"] == 1.0
+
+
+def test_bad_randomisation_dates_dropped_without_flag_column():
+    raw = pd.DataFrame(
+        {
+            "clickability_test_id": ["a", "a", "b", "b"],
+            "headline": ["h1", "h2", "h1", "h2"],
+            "created_at": ["2013-08-01", "2013-08-01", "2014-03-01", "2014-03-01"],
+            "impressions": [100] * 4,
+            "clicks": [1, 2, 1, 2],
+        }
+    )
+    assert set(clean_packages(raw)["clickability_test_id"]) == {"b"}
