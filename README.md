@@ -1,6 +1,6 @@
 # What Sells Political and Business News? 32,487 Real Headline A/B Tests
 
-![CI](https://github.com/akars7/headline-experiments/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/kaanakars/headline-experiments/actions/workflows/ci.yml/badge.svg)
 
 ## Question
 **Which headline wording makes people click, and does negativity or outrage sell political and business news more than other stories?**
