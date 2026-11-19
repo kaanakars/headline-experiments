@@ -2,8 +2,8 @@
 
 1. headline-lab-label-sample writes data/labels/to_label.csv (200 random stories).
 2. Fill the 'label' column with politics, business or other, by reading the story.
-3. validate() compares your labels with the tagger.
-The tagger's guess isn't in the file, so it can't sway your labels.
+3. validate() compares the hand labels with the tagger.
+The tagger's guess is left out of the file, so it can't sway the labels.
 """
 
 from __future__ import annotations
